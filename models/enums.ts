@@ -21,4 +21,15 @@ enum Enum_Fase {
   terminado = 'Terminado',
 }
 
-export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto, Enum_Fase };
+enum Enum_EstadoInscripcion {
+  aceptado = 'Aceptado',
+  rechazado = 'Rechazado',
+  terminado = 'Terminado',
+}
+
+enum Enum_TipoObjetivo {
+  general = 'General',
+  especifico = 'Especifico',
+}
+
+export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto, Enum_Fase, Enum_EstadoInscripcion, Enum_TipoObjetivo };

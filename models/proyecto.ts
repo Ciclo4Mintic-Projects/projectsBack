@@ -12,7 +12,7 @@ interface Proyecto {
     fase: Enum_Fase;
 }
 
-const userSchema = new Schema<Proyecto>({
+const proyectoSchema = new Schema<Proyecto>({
     nombre: {
         type: String,
         required: true,
@@ -51,6 +51,6 @@ const userSchema = new Schema<Proyecto>({
     }
 });
 
-const ProyectoModel = model('User', userSchema);
+const ProyectoModel = model('Proyecto', proyectoSchema);
 
 export { ProyectoModel };
