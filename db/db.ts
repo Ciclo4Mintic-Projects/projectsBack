@@ -3,7 +3,7 @@ import { connect } from 'mongoose';
 
 const conectarBD = async () => {
   return await connect(
-    'mongodb+srv://admin:AdminProyectos@gestionproyectosmisiont.1zmu5.mongodb.net/GestionProyectos?retryWrites=true&w=majority'
+    'mongodb+srv://admin:supremacy@cluster0.x9cqh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
   )
     .then(() => {
       console.log('Conexion exitosa');
