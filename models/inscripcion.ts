@@ -25,6 +25,7 @@ const inscripcionSchema = new Schema<Inscripcion>({
   estado: {
     type: String,
     enum: Enum_EstadoInscripcion,
+    default: Enum_EstadoInscripcion.rechazado,
   },
   fechaIngreso: {
     type: Date,

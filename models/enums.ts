@@ -19,13 +19,12 @@ enum Enum_Fase {
   iniciado = 'Iniciado',
   desarrollo = 'Desarrollo',
   terminado = 'Terminado',
-  nulo = "",
+  nulo = 'nulo',
 }
 
 enum Enum_EstadoInscripcion {
   aceptado = 'Aceptado',
   rechazado = 'Rechazado',
-  terminado = 'Terminado',
 }
 
 enum Enum_TipoObjetivo {

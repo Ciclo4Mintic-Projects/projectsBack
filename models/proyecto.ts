@@ -19,6 +19,7 @@ const proyectoSchema = new Schema<Proyecto>({
     nombre: {
         type: String,
         required: true,
+        unique : true,
     },
     // objetivos: {
     //     type: objetivo,
