@@ -2,6 +2,7 @@ import conectarBD from './db/db';
 import { UserModel } from './models/user';
 import { ProyectoModel } from './models/proyecto';
 import { InscripcionModel } from './models/inscripcion';
+import { AvanceModel } from './models/avances';
 import { Enum_EstadoUsuario, Enum_Rol } from './models/enums';
 
 const main = async () => {
@@ -50,17 +51,32 @@ const main = async () => {
   //   });
 
   //Crear Inscripcion
-  await InscripcionModel.create({
-    proyecto: '618c3c8021d424c0855567cf',
-    estudiante: '618c3a97dca7937bb14aba4c',
-    fechaIngreso: Date.now(),
-  })
-    .then((u) => {
-      console.log('usuario creado', u);
+  // await InscripcionModel.create({
+  //   proyecto: '618c3c8021d424c0855567cf',
+  //   estudiante: '618c3a97dca7937bb14aba4c',
+  //   fechaIngreso: Date.now(),
+  // })
+  //   .then((u) => {
+  //     console.log('usuario creado', u);
+  //   })
+  //   .catch((e) => {
+  //     console.error('Error creando el usuario', e);
+  //   });
+
+    //Crear Avance
+    await AvanceModel.create({
+      proyecto: '618c3c8021d424c0855567cf',
+      fecha: Date.now(),
+      descripcion: 'Avance 1',
+      observaciones: 'Observacion 1',
+      creadoPor: '618c3a97dca7937bb14aba4c',
     })
-    .catch((e) => {
-      console.error('Error creando el usuario', e);
-    });
+      .then((u) => {
+        console.log('usuario creado', u);
+      })
+      .catch((e) => {
+        console.error('Error creando el usuario', e);
+      });
 };
 
 main();
