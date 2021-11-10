@@ -19,6 +19,7 @@ enum Enum_Fase {
   iniciado = 'Iniciado',
   desarrollo = 'Desarrollo',
   terminado = 'Terminado',
+  nulo = "",
 }
 
 enum Enum_EstadoInscripcion {

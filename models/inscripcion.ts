@@ -1,10 +1,12 @@
 import { Schema, model } from 'mongoose';
 import { updateImportEqualsDeclaration } from 'typescript';
 import { Enum_EstadoInscripcion } from './enums';
+import { UserModel } from './user';
+import { ProyectoModel } from './proyecto';
 
 interface Inscripcion {
-  //proyecto: proyecto;
-  //estudiante: usuario;
+  proyecto: Schema.Types.ObjectId;
+  estudiante: Schema.Types.ObjectId;
   estado: Enum_EstadoInscripcion;
   fechaIngreso: Date;
   fechaEgreso:Date;
@@ -12,25 +14,23 @@ interface Inscripcion {
 }
 
 const inscripcionSchema = new Schema<Inscripcion>({
- /*  proyecto: {
-    type: proyecto,
-    required: true,
+  proyecto: {
+    type: Schema.Types.ObjectId,
+    ref: ProyectoModel,
   },
   estudiante: {
-    type: usuario,
-    required: true,
-  }, */
+    type: Schema.Types.ObjectId,
+    ref: UserModel,
+  },
   estado: {
     type: String,
     enum: Enum_EstadoInscripcion,
   },
   fechaIngreso: {
     type: Date,
-    required: true,
   },
   fechaEgreso: {
     type: Date,
-    required: true,
   }
 });
 

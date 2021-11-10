@@ -14,6 +14,13 @@ const userSchema = new Schema<User>({
   correo: {
     type: String,
     required: true,
+    unique : true,
+    validate: {
+         validator: function (v) {
+          return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+        },
+        message: 'Please enter a valid email',
+      },
   },
   identificacion: {
     type: String,
@@ -37,6 +44,7 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
     enum: Enum_EstadoUsuario,
+    default: Enum_EstadoUsuario.pendiente,
   }
 });
 
