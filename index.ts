@@ -67,8 +67,7 @@ const main = async () => {
     await AvanceModel.create({
       proyecto: '618c3c8021d424c0855567cf',
       fecha: Date.now(),
-      descripcion: 'Avance 1',
-      observaciones: 'Observacion 1',
+      descripcion: 'Avance 2',
       creadoPor: '618c3a97dca7937bb14aba4c',
     })
       .then((u) => {

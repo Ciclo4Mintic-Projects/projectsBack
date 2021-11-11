@@ -23,10 +23,12 @@ const avanceSchema = new Schema<Avance>({
     type: String,
     required: true,
   },
-  observaciones: {
-    type: String,
-    required: true,
-  },
+  observaciones: [
+      {
+        type: String,
+        //default:null,
+    }
+  ],
   creadoPor: {
     type: Schema.Types.ObjectId,
     ref: UserModel,
