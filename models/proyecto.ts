@@ -58,12 +58,12 @@ const proyectoSchema = new Schema<Proyecto>({
         type: String,
         required: true,
         enum: Enum_EstadoProyecto,
-        default: Enum_EstadoProyecto.inactivo,
+        default: Enum_EstadoProyecto.INACTIVO,
     },
     fase: {
         type: String,
         enum: Enum_Fase,
-        default: Enum_Fase.nulo,
+        default: Enum_Fase.NULO,
     }
 });
 
