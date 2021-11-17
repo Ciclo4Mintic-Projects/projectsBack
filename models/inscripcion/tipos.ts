@@ -15,7 +15,7 @@ type Inscripcion {
     Inscripcion: [Inscripcion]
   }
   type Mutation {
-    crearInscripcion(proyecto: String!, estudiante: String!, estado: Enum_EstadoInscripcion, fechaIngreso: Date, fechaEgreso: Date): Avance
+    crearInscripcion(proyecto: String!, estudiante: String!, estado: Enum_EstadoInscripcion, fechaIngreso: Date, fechaEgreso: Date): Inscripcion
   }
 `;
 

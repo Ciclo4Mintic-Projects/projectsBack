@@ -2,7 +2,7 @@ import { AvanceModel } from './avances';
 
 const resolversAvance = {
   Query: {    
-    Avance: async (parent, args) => {
+    Avances: async (parent, args) => {
       const avance = await AvanceModel.find().populate('proyecto').populate('creadoPor');
       return avance;
     },
