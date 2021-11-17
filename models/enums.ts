@@ -25,6 +25,7 @@ enum Enum_Fase {
 enum Enum_EstadoInscripcion {
   ACEPTADO = 'ACEPTADO',
   RECHAZADO = 'RECHAZADO',
+  PENDIENTE = 'PENDIENTE',
 }
 
 enum Enum_TipoObjetivo {
