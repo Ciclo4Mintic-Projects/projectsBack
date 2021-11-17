@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { updateImportEqualsDeclaration } from 'typescript';
-import { Enum_TipoObjetivo } from './enums';
+import { Enum_TipoObjetivo } from './enums/enums';
 
 interface Objetivo {
   descripcion: string;
