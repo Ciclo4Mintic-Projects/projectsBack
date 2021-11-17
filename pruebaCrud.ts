@@ -1,5 +1,5 @@
 import conectarBD from './db/db';
-import { UserModel } from './models/user';
+import { UserModel } from './models/usuario';
 import { ProyectoModel } from './models/proyecto';
 import { InscripcionModel } from './models/inscripcion';
 import { AvanceModel } from './models/avances';

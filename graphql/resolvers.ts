@@ -1,14 +1,14 @@
 import { ProyectoModel } from '../models/proyecto';
-import { UserModel } from '../models/user';
+import { UsuarioModel } from '../models/usuario';
 
 const resolvers = {
   Query: {
     Usuarios: async (parent, args) => {
-      const usuarios = await UserModel.find();
+      const usuarios = await UsuarioModel.find();
       return usuarios;
     },
     Usuario: async (parent, args) => {
-      const usuario = await UserModel.findOne({ _id: args._id });
+      const usuario = await UsuarioModel.findOne({ _id: args._id });
       return usuario;
     },
     Proyectos: async (parent, args) => {
@@ -18,7 +18,7 @@ const resolvers = {
   },
   Mutation: {
     crearUsuario: async (parent, args) => {
-      const usuarioCreado = await UserModel.create({
+      const usuarioCreado = await UsuarioModel.create({
         nombre: args.nombre,
         apellido: args.apellido,
         identificacion: args.identificacion,
@@ -33,7 +33,7 @@ const resolvers = {
       return usuarioCreado;
     },
     editarUsuario: async (parent, args) => {
-      const usuarioEditado = await UserModel.findByIdAndUpdate(args._id, {
+      const usuarioEditado = await UsuarioModel.findByIdAndUpdate(args._id, {
         nombre: args.nombre,
         apellido: args.apellido,
         identificacion: args.identificacion,
@@ -46,10 +46,10 @@ const resolvers = {
     },
     eliminarUsuario: async (parent, args) => {
       if (Object.keys(args).includes('_id')) {
-        const usuarioEliminado = await UserModel.findOneAndDelete({ _id: args._id });
+        const usuarioEliminado = await UsuarioModel.findOneAndDelete({ _id: args._id });
         return usuarioEliminado;
       } else if (Object.keys(args).includes('correo')) {
-        const usuarioEliminado = await UserModel.findOneAndDelete({ correo: args.correo });
+        const usuarioEliminado = await UsuarioModel.findOneAndDelete({ correo: args.correo });
         return usuarioEliminado;
       }
     },
@@ -62,7 +62,7 @@ const resolvers = {
         fechaFin: args.fechaFin,
         presupuesto: args.presupuesto,
         lider: args.lider,
-        objetivos: [{ descripcion: 'Este es el objetivo general', tipo: 'GENERAL' }],
+        objetivos: args.objetivos,
       });
       return proyectoCreado;
     },

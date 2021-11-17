@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { Enum_Rol, Enum_EstadoUsuario } from './enums';
 
-interface User {
+interface Usuario {
   correo: string;
   identificacion: string;
   nombre: string;
@@ -10,7 +10,7 @@ interface User {
   estado: Enum_EstadoUsuario;
 }
 
-const userSchema = new Schema<User>({
+const usuarioSchema = new Schema<Usuario>({
   correo: {
     type: String,
     required: true,
@@ -19,7 +19,7 @@ const userSchema = new Schema<User>({
          validator: function (v) {
           return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
         },
-        message: 'Please enter a valid email',
+        message: 'Ingresa un email valido',
       },
   },
   identificacion: {
@@ -48,6 +48,6 @@ const userSchema = new Schema<User>({
   }
 });
 
-const UserModel = model('User', userSchema);
+const UsuarioModel = model('Usuario', usuarioSchema);
 
-export { UserModel };
+export { UsuarioModel };
