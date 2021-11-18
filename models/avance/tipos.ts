@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 const tiposAvance = gql`  
  
-    type Avance {
+  type Avance {
     _id: ID!
     fecha: Date!
     descripcion: String!

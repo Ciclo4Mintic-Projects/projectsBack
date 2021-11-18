@@ -6,7 +6,7 @@ interface Avance {
   proyecto: Schema.Types.ObjectId;
   fecha: Date;
   descripcion: string;
-  observaciones: string;
+  observaciones: [string];
   creadoPor: Schema.Types.ObjectId;
 }
 
