@@ -13,6 +13,8 @@ const tiposProyecto = gql`
     lider: Usuario!
     objetivoGeneral: String!
     objetivosEspecificos: [String]!
+    avances: [Avance]
+    inscripciones: [Inscripcion]
   }
 
   type Query {

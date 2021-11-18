@@ -1,16 +1,7 @@
-import { Schema, model } from 'mongoose';
-import { Enum_Rol, Enum_EstadoUsuario } from '../enums/enums';
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
-interface Usuario {
-  correo: string;
-  identificacion: string;
-  nombre: string;
-  apellido: string;
-  rol: Enum_Rol;
-  estado: Enum_EstadoUsuario;
-}
-
-const usuarioSchema = new Schema<Usuario>({
+const usuarioSchema = new Schema({
   correo: {
     type: String,
     required: true,
@@ -38,13 +29,13 @@ const usuarioSchema = new Schema<Usuario>({
   rol: {
     type: String,
     required: true,
-    enum: Enum_Rol,
+    enum: ['ESTUDIANTE', 'LIDER', 'ADMINISTRADOR'],
   },
   estado: {
     type: String,
     required: true,
-    enum: Enum_EstadoUsuario,
-    default: Enum_EstadoUsuario.PENDIENTE,
+    enum: ['PENDIENTE', 'AUTORIZADO', 'NO_AUTORIZADO'],
+    default: 'PENDIENTE',
   }
 });
 
