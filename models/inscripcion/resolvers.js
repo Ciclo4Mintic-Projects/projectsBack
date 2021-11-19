@@ -19,10 +19,10 @@ const resolversInscripcion = {
       return inscripcionCreada;
     },
     aprobarInscripcion: async (parent, args) => {
-      const inscripcionAprobada = await InscripcionModel.findByIdAndUpdate(args.id, {
+      const inscripcionAprobada = await InscripcionModel.findByIdAndUpdate(args._id, {
         estado: 'ACEPTADO',
         fechaIngreso: Date.now(),
-      });
+      },{new:true});
       return inscripcionAprobada;
     },
   },

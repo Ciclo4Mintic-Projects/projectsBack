@@ -17,7 +17,7 @@ type Inscripcion {
   type Mutation {
     crearInscripcion(proyecto: String!, estudiante: String!, estado: Enum_EstadoInscripcion, fechaIngreso: Date, fechaEgreso: Date): Inscripcion
 
-    aprobarInscripcion(id: String!): Inscripcion
+    aprobarInscripcion(_id: String!): Inscripcion
   }
 `;
 
