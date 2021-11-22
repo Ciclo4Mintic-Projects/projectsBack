@@ -2,8 +2,12 @@ import { InscripcionModel } from './inscripcion.js';
 
 const resolversInscripcion = {
   Query: {    
+    Inscripciones: async (parent, args) => {
+      const inscripciones = await InscripcionModel.find().populate('proyecto').populate('estudiante');
+      return inscripciones;
+    },
     Inscripcion: async (parent, args) => {
-      const inscripcion = await InscripcionModel.find().populate('proyecto').populate('estudiante');
+      const inscripcion = await InscripcionModel.findOne({ _id: args._id }).populate('proyecto').populate('estudiante');
       return inscripcion;
     },
   },
@@ -19,11 +23,30 @@ const resolversInscripcion = {
       return inscripcionCreada;
     },
     aprobarInscripcion: async (parent, args) => {
-      const inscripcionAprobada = await InscripcionModel.findByIdAndUpdate(args._id, {
-        estado: 'ACEPTADO',
-        fechaIngreso: Date.now(),
-      },{new:true});
-      return inscripcionAprobada;
+      if (Object.values(args).includes('ACEPTADO')){
+        const inscripcionAprobada = await InscripcionModel.findByIdAndUpdate(args._id,
+          {
+            estado: args.estado,
+            fechaIngreso: Date.now(),
+          }, {new: true}
+        );
+        return inscripcionAprobada;
+      }else {
+        const inscripcionAprobada = await InscripcionModel.findByIdAndUpdate(args._id,
+          {
+            estado: args.estado,
+            fechaIngreso: null,
+          }, {new: true}
+        );
+        return inscripcionAprobada;
+      }
+      // const inscripcionAprobada = await InscripcionModel.findByIdAndUpdate(args._id, {
+      //   estado: args.estado,
+      //   if (args.estado === 'ACEPTADO'){
+      //     fechaIngreso: Date.now(),
+      //   }        
+      // },{new:true});
+      // return inscripcionAprobada;
     },
   },
 };
