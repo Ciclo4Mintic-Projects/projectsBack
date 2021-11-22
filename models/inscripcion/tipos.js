@@ -19,6 +19,10 @@ type Inscripcion {
     crearInscripcion(proyecto: String!, estudiante: String!, estado: Enum_EstadoInscripcion, fechaIngreso: Date, fechaEgreso: Date): Inscripcion
 
     aprobarInscripcion(_id: String!, estado: Enum_EstadoInscripcion, fechaIngreso: Date): Inscripcion
+
+    inscripcionTerminada: [Inscripcion]
+
+    inscripcionNula: [Inscripcion]
   }
 `;
 

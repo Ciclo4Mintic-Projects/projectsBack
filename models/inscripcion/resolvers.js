@@ -40,14 +40,21 @@ const resolversInscripcion = {
         );
         return inscripcionAprobada;
       }
-      // const inscripcionAprobada = await InscripcionModel.findByIdAndUpdate(args._id, {
-      //   estado: args.estado,
-      //   if (args.estado === 'ACEPTADO'){
-      //     fechaIngreso: Date.now(),
-      //   }        
-      // },{new:true});
-      // return inscripcionAprobada;
-    },
+    },inscripcionTerminada: async (parent, args) => {      
+        const inscripcionTerminada = await InscripcionModel.updateMany({'proyecto': '61966af6f62d94f61dd64ac4'},//como traer campos de objeto referencia {proyecto:{fase:'TERMINADO'}
+          {
+            fechaEgreso: new Date(),
+          }
+        );
+        return inscripcionTerminada;      
+    },inscripcionNula: async (parent, args) => {      
+      const inscripcionNula = await InscripcionModel.updateMany({'proyecto': '61966af6f62d94f61dd64ac4'},//trabajar con args._id y como implementarlo en el get de proyecto
+        {
+          fechaEgreso: null,
+        }
+      );
+      return inscripcionNula;      
+  },
   },
 };
 
