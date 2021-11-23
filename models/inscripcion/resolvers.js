@@ -14,14 +14,19 @@ const resolversInscripcion = {
   },
   Mutation: {    
     crearInscripcion: async (parent, args) => {
-      const inscripcionCreada = await InscripcionModel.create({
-        proyecto: args.proyecto,
-        estudiante: args.estudiante,
-        estado: args.estado,
-        fechaIngreso: args.fechaIngreso,
-        fechaEgreso: args.fechaEgreso,
-      });
-      return inscripcionCreada;
+      const inscripcion = await InscripcionModel.findOne({ $and: [{proyecto: args.proyecto}, {estudiante: args.estudiante}] });
+      if(inscripcion){
+        console.log('Registro existente')
+      }else{
+        const inscripcionCreada = await InscripcionModel.create({
+          proyecto: args.proyecto,
+          estudiante: args.estudiante,
+          estado: args.estado,
+          fechaIngreso: args.fechaIngreso,
+          fechaEgreso: args.fechaEgreso,
+        });
+        return inscripcionCreada;
+      }      
     },
     aprobarInscripcion: async (parent, args) => {      
       if (Object.values(args).includes('ACEPTADO')){
@@ -42,14 +47,14 @@ const resolversInscripcion = {
         return inscripcionAprobada;
       }
     },inscripcionTerminada: async (parent, args) => {      
-        const inscripcionTerminada = await InscripcionModel.updateMany({'proyecto': '61966af6f62d94f61dd64ac4'},//como traer campos de objeto referencia {proyecto:{fase:'TERMINADO'}
+        const inscripcionTerminada = await InscripcionModel.updateMany({proyecto: "61966bb3f62d94f61dd64ac6"},//como traer campos de objeto referencia {proyecto:{fase:'TERMINADO'}
           {
             fechaEgreso: date.setHours(date.getHours() - 5),
           }
         );
         return inscripcionTerminada;      
     },inscripcionNula: async (parent, args) => {      
-      const inscripcionNula = await InscripcionModel.updateMany({'proyecto': '61966af6f62d94f61dd64ac4'},//trabajar con args._id y como implementarlo en el get de proyecto
+      const inscripcionNula = await InscripcionModel.updateMany({fase: 'TERMINADO'},//trabajar con args._id y como implementarlo en el get de proyecto
         {
           fechaEgreso: null,
         }
