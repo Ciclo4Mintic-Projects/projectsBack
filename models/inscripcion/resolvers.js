@@ -1,5 +1,6 @@
 import { InscripcionModel } from './inscripcion.js';
 
+let date = new Date();
 const resolversInscripcion = {
   Query: {    
     Inscripciones: async (parent, args) => {
@@ -22,12 +23,12 @@ const resolversInscripcion = {
       });
       return inscripcionCreada;
     },
-    aprobarInscripcion: async (parent, args) => {
+    aprobarInscripcion: async (parent, args) => {      
       if (Object.values(args).includes('ACEPTADO')){
         const inscripcionAprobada = await InscripcionModel.findByIdAndUpdate(args._id,
           {
             estado: args.estado,
-            fechaIngreso: Date.now(),
+            fechaIngreso: date.setHours(date.getHours() - 5),
           }, {new: true}
         );
         return inscripcionAprobada;
@@ -43,7 +44,7 @@ const resolversInscripcion = {
     },inscripcionTerminada: async (parent, args) => {      
         const inscripcionTerminada = await InscripcionModel.updateMany({'proyecto': '61966af6f62d94f61dd64ac4'},//como traer campos de objeto referencia {proyecto:{fase:'TERMINADO'}
           {
-            fechaEgreso: new Date(),
+            fechaEgreso: date.setHours(date.getHours() - 5),
           }
         );
         return inscripcionTerminada;      
