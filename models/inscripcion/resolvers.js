@@ -4,7 +4,10 @@ let date = new Date();
 const resolversInscripcion = {
   Query: {    
     Inscripciones: async (parent, args) => {
-      const inscripciones = await InscripcionModel.find().populate('proyecto').populate('estudiante');
+      const inscripciones = await InscripcionModel.find().populate('estudiante').populate({path:'proyecto',
+    populate: {
+      path:'lider'
+    }});
       return inscripciones;
     },
     Inscripcion: async (parent, args) => {
