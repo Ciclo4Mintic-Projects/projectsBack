@@ -27,6 +27,22 @@ const resolversAutenticacion = {
                 }),
             };
         },
+
+        login: async (parent, args) => {
+            const usuarioEncontrado = await UsuarioModel.findOne({ correo: args.correo });
+            if (await bcrypt.compare(args.password, usuarioEncontrado.password)) {
+                return {
+                    token:generateToken({
+                        _id:usuarioEncontrado._id,
+                        nombre: usuarioEncontrado.nombre,
+                        apellido: usuarioEncontrado.apellido,
+                        identificacion: usuarioEncontrado.identificacion,
+                        correo: usuarioEncontrado.correo,
+                        rol: usuarioEncontrado.rol,
+                    }),
+                };
+            }
+        },
     },
 };
 
