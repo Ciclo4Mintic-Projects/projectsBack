@@ -13,6 +13,10 @@ const usuarioSchema = new Schema({
         message: 'Ingresa un email valido',
       },
   },
+  password:{
+    type: String,
+    required: true,
+  },
   identificacion: {
     type: String,
     required: true,
