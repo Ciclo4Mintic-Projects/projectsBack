@@ -7,7 +7,7 @@ const resolversAvance = {
       return avances;
     },
     Avance: async (parent, args) => {
-      const avance = await AvanceModel.findOne({ _id: args._id });
+      const avance = await AvanceModel.findOne({ _id: args._id }).populate('proyecto').populate('creadoPor');
       return avance
     },
     filtrarAvance: async (parent, args) => {
