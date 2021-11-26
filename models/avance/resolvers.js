@@ -3,8 +3,12 @@ import { AvanceModel } from './avance.js';
 const resolversAvance = {
   Query: {
     Avances: async (parent, args) => {
-      const avance = await AvanceModel.find().populate('proyecto').populate('creadoPor');
-      return avance;
+      const avances = await AvanceModel.find().populate('proyecto').populate('creadoPor');
+      return avances;
+    },
+    Avance: async (parent, args) => {
+      const avance = await AvanceModel.findOne({ _id: args._id });
+      return avance
     },
     filtrarAvance: async (parent, args) => {
       const avanceFiltrado = await AvanceModel.find({ proyecto: args.idProyecto }).populate('proyecto').populate('creadoPor');
