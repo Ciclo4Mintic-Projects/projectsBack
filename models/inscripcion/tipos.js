@@ -7,8 +7,8 @@ type Inscripcion {
     proyecto: Proyecto!
     estudiante: Usuario!
     estado: Enum_EstadoInscripcion
-    fechaIngreso: Date
-    fechaEgreso:Date
+    fechaIngreso: String
+    fechaEgreso: String
   }
 
   type Query {
@@ -16,13 +16,13 @@ type Inscripcion {
     Inscripcion(_id: String!): Inscripcion
   }
   type Mutation {
-    crearInscripcion(proyecto: String!, estudiante: String!, estado: Enum_EstadoInscripcion, fechaIngreso: Date, fechaEgreso: Date): Inscripcion
+    crearInscripcion(proyecto: String!, estudiante: String!, estado: Enum_EstadoInscripcion, fechaIngreso: String, fechaEgreso: String): Inscripcion
 
-    aprobarInscripcion(_id: String!, estado: Enum_EstadoInscripcion, fechaIngreso: Date): Inscripcion
+    aprobarInscripcion(_id: String!, estado: Enum_EstadoInscripcion, fechaIngreso: String): Inscripcion
 
-    inscripcionTerminada: [Inscripcion]
+    inscripcionTerminada(proyecto: String!): [Inscripcion]
 
-    inscripcionNula: [Inscripcion]
+    inscripcionNula(proyecto: String!): [Inscripcion]
   }
 `;
 
