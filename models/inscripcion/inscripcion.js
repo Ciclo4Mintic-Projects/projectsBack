@@ -19,11 +19,11 @@ const inscripcionSchema = new Schema({
     default: 'PENDIENTE',
   },
   fechaIngreso: {
-    type: Date,
+    type: String,
     default:null,
   },
   fechaEgreso: {
-    type: Date,
+    type: String,
     default: null,
   }
 });
