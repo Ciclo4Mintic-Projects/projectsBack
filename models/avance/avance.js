@@ -17,14 +17,18 @@ const avanceSchema = new Schema({
     required: true,
   },
   observaciones: [
-      {
-        type: String,
-        //default:null,
+    {
+      type: String,
+      //default:null,
     }
   ],
   creadoPor: {
     type: Schema.Types.ObjectId,
     ref: UsuarioModel,
+  },
+  titulo: {
+    type: String,
+    required: true,
   }
 });
 
