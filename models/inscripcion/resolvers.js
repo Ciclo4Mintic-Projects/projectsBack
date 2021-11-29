@@ -1,6 +1,5 @@
 import { InscripcionModel } from './inscripcion.js';
 
-let date = new Date();
 const resolversInscripcion = {
   Query: {    
     Inscripciones: async (parent, args) => {
@@ -33,10 +32,11 @@ const resolversInscripcion = {
     },
     aprobarInscripcion: async (parent, args) => {      
       if (Object.values(args).includes('ACEPTADO')){
+        let date = new Date();
         const inscripcionAprobada = await InscripcionModel.findByIdAndUpdate(args._id,
           {
             estado: args.estado,
-            fechaIngreso: date.setHours(date.getHours() - 5),
+            fechaIngreso: date.toLocaleString(),
           }, {new: true}
         );
         return inscripcionAprobada;
@@ -49,15 +49,16 @@ const resolversInscripcion = {
         );
         return inscripcionAprobada;
       }
-    },inscripcionTerminada: async (parent, args) => {      
-        const inscripcionTerminada = await InscripcionModel.updateMany({proyecto: "61966bb3f62d94f61dd64ac6"},//como traer campos de objeto referencia {proyecto:{fase:'TERMINADO'}
+    },inscripcionTerminada: async (parent, args) => {
+        let date = new Date();      
+        const inscripcionTerminada = await InscripcionModel.updateMany({proyecto: args.proyecto},//como traer campos de objeto referencia {proyecto:{fase:'TERMINADO'}
           {
-            fechaEgreso: date.setHours(date.getHours() - 5),
+            fechaEgreso: date.toLocaleString(),
           }
         );
         return inscripcionTerminada;      
     },inscripcionNula: async (parent, args) => {      
-      const inscripcionNula = await InscripcionModel.updateMany({fase: 'TERMINADO'},//trabajar con args._id y como implementarlo en el get de proyecto
+      const inscripcionNula = await InscripcionModel.updateMany({proyecto: args.proyecto},//trabajar con args._id y como implementarlo en el get de proyecto
         {
           fechaEgreso: null,
         }
