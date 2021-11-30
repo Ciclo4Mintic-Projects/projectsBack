@@ -51,14 +51,14 @@ const resolversInscripcion = {
       }
     },inscripcionTerminada: async (parent, args) => {
         let date = new Date();      
-        const inscripcionTerminada = await InscripcionModel.updateMany({proyecto: args.proyecto},//como traer campos de objeto referencia {proyecto:{fase:'TERMINADO'}
+        const inscripcionTerminada = await InscripcionModel.updateMany($and[{proyecto: args.proyecto}, {estado: "ACEPTADO"}],//como traer campos de objeto referencia {proyecto:{fase:'TERMINADO'}
           {
             fechaEgreso: date.toLocaleString(),
           }
         );
         return inscripcionTerminada;      
     },inscripcionNula: async (parent, args) => {      
-      const inscripcionNula = await InscripcionModel.updateMany({proyecto: args.proyecto},//trabajar con args._id y como implementarlo en el get de proyecto
+      const inscripcionNula = await InscripcionModel.updateMany($and[{proyecto: args.proyecto}, {estado: "ACEPTADO"}],//trabajar con args._id y como implementarlo en el get de proyecto
         {
           fechaEgreso: null,
         }
