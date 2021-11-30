@@ -15,7 +15,7 @@ const proyectoSchema = new Schema({
     objetivosEspecificos: [
         {
             type: String,
-            required: true
+            required: true,
         }
     ],
     presupuesto: {
@@ -23,12 +23,14 @@ const proyectoSchema = new Schema({
         required: true,
     },
     fechaInicio: {
-        type: Date,
+        type: String,
         required: true,
+        default: null
     },
     fechaFin: {
-        type: Date,
+        type: String,
         required: true,
+        default: null
     },
     lider: {
         type: Schema.Types.ObjectId,
