@@ -11,6 +11,14 @@ const resolversProyecto = {
           } 
        });
         return proyectos;
+      }else if(context.userData.rol === 'ESTUDIANTE'){
+        const proyectos = await ProyectoModel.find({estado: "ACTIVO"}).populate('lider').populate('avances').populate({ 
+          path: 'inscripciones',
+          populate: {
+            path: 'estudiante'
+          } 
+       });
+        return proyectos;
       }else {
         const proyectos = await ProyectoModel.find().populate('lider').populate('avances').populate({ 
           path: 'inscripciones',

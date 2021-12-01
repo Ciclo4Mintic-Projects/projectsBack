@@ -16,9 +16,9 @@ const resolversInscripcion = {
   },
   Mutation: {    
     crearInscripcion: async (parent, args) => {
-      const inscripcion = await InscripcionModel.findOne({ $and: [{proyecto: args.proyecto}, {estudiante: args.estudiante}] });
+      const inscripcion = await InscripcionModel.findOne({ $and: [{proyecto: args.proyecto}, {estudiante: args.estudiante}, {fechaEgreso: null}] });
       if(inscripcion){
-        console.log('Registro existente')
+        console.log('La inscripcion esta activa')      
       }else{
         const inscripcionCreada = await InscripcionModel.create({
           proyecto: args.proyecto,
@@ -27,7 +27,7 @@ const resolversInscripcion = {
           fechaIngreso: args.fechaIngreso,
           fechaEgreso: args.fechaEgreso,
         });
-        return inscripcionCreada;
+        return inscripcionCreada;        
       }      
     },
     aprobarInscripcion: async (parent, args) => {      
