@@ -7,7 +7,10 @@ const resolversUsuario = {
       if(context.userData.rol === 'ADMINISTRADOR'){
         const usuarios = await UsuarioModel.find();
         return usuarios;        
-      } else {
+      }else if(context.userData.rol === 'LIDER'){
+        const usuarios = await UsuarioModel.find({rol: "ESTUDIANTE"});
+        return usuarios;
+      } else{
         return null;
       }
     },
