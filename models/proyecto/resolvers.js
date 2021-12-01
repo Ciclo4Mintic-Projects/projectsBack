@@ -11,6 +11,10 @@ const resolversProyecto = {
      });
       return proyectos;
     },
+    Proyecto: async (parent, args) => {
+      const proyecto = await ProyectoModel.findOne({ _id: args._id });
+      return proyecto;
+    },
   },
   Mutation: {    
     crearProyecto: async (parent, args) => {
@@ -26,6 +30,21 @@ const resolversProyecto = {
         objetivosEspecificos: args.objetivosEspecificos,
       });
       return proyectoCreado;
+    },
+    editarProyecto: async (parent, args) => {
+      const proyectoEditado = await ProyectoModel.findByIdAndUpdate(args._id, {
+        nombre: args.nombre,
+        estado: args.estado,
+        fase: args.fase,
+        fechaInicio: args.fechaInicio,
+        fechaFin: args.fechaFin,
+        presupuesto: args.presupuesto,
+        lider: args.lider,
+        objetivoGeneral: args.objetivoGeneral,
+        objetivosEspecificos: args.objetivosEspecificos,
+      },{new:true});
+
+      return proyectoEditado;
     },
   },
 };
