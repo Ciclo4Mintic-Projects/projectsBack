@@ -24,12 +24,12 @@ const proyectoSchema = new Schema({
     },
     fechaInicio: {
         type: String,
-        required: true,
+        required: false,
         default: null
     },
     fechaFin: {
         type: String,
-        required: true,
+        required: false,
         default: null
     },
     lider: {
