@@ -5,8 +5,14 @@ import { generateToken } from "../../utils/tokenUtils.js";
 const resolversAutenticacion = {
     Mutation: {
         registro: async (parent, args) => {
-            console.log('registro')
             try {
+                
+                if(await UsuarioModel.findOne({correo: args.correo })) {
+                    return {
+                        error: 'Por favor verifique su correo, el usuario ya existe'
+                    }
+                };  
+
                 if(args.password !== args.verifypassword){
                     return {
                       error: 'La contraseña y la verificacion no coinciden'
