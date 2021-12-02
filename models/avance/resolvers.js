@@ -37,6 +37,10 @@ const resolversAvance = {
         titulo: args.titulo,
       }, { new: true })
       return avanceEditado;
+    },
+    eliminarAvance: async (parent, args) => {
+      const avanceEliminado = await AvanceModel.findOneAndDelete({ _id: args._id })
+      return avanceEliminado;
     }
   },
 };
