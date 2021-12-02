@@ -1,4 +1,5 @@
 import { UsuarioModel } from './usuario.js'
+import { generateToken } from "../../utils/tokenUtils.js";
 
 const resolversUsuario = {
   Query: {
@@ -46,6 +47,24 @@ const resolversUsuario = {
       },{new:true});
 
       return usuarioEditado;
+    },
+    editarPerfil: async (parent, args) => {
+      const perfilEditado = await UsuarioModel.findByIdAndUpdate(args._id, {
+        nombre: args.nombre,
+        apellido: args.apellido,
+        identificacion: args.identificacion,
+        correo: args.correo,
+        rol: args.rol,
+      },{new:true});
+      return {
+        token:generateToken({_id: perfilEditado._id,
+          nombre: perfilEditado.nombre,
+          apellido: perfilEditado.apellido,
+          identificacion: perfilEditado.identificacion,
+          correo: perfilEditado.correo,
+          rol: perfilEditado.rol,
+          estado: perfilEditado.estado}),
+      };
     },
     eliminarUsuario: async (parent, args) => {
       if (Object.keys(args).includes('_id')) {

@@ -17,6 +17,7 @@ const resolversAutenticacion = {
                     password: hashedPassword,
                 });
                 console.log('usuario creado', usuarioCreado);
+                console.log('clave', args.password);
                 return {
                     token:generateToken({
                         _id:usuarioCreado._id,
@@ -48,6 +49,8 @@ const resolversAutenticacion = {
                             estado: usuarioEncontrado.estado,
                         }),
                     };
+                } else {
+                    return {error: 'Correo o contraseña inválidos'} 
                 }
 
             } catch (error) {           
