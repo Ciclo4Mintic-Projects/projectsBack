@@ -6,6 +6,18 @@ const resolversAutenticacion = {
     Mutation: {
         registro: async (parent, args) => {
             try {
+                
+                if(await UsuarioModel.findOne({correo: args.correo })) {
+                    return {
+                        error: 'Por favor verifique su correo, el usuario ya existe'
+                    }
+                };  
+
+                if(args.password !== args.verifypassword){
+                    return {
+                      error: 'La contraseña y la verificacion no coinciden'
+                    }
+                  }
                 const salt = await bcrypt.genSalt(10);
                 const hashedPassword = await bcrypt.hash(args.password, salt);
                 const usuarioCreado = await UsuarioModel.create({
@@ -16,8 +28,6 @@ const resolversAutenticacion = {
                     rol: args.rol,
                     password: hashedPassword,
                 });
-                console.log('usuario creado', usuarioCreado);
-                console.log('clave', args.password);
                 return {
                     token:generateToken({
                         _id:usuarioCreado._id,
