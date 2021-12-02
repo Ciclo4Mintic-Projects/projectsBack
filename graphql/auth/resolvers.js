@@ -5,6 +5,7 @@ import { generateToken } from "../../utils/tokenUtils.js";
 const resolversAutenticacion = {
     Mutation: {
         registro: async (parent, args) => {
+            console.log('registro')
             try {
                 const salt = await bcrypt.genSalt(10);
                 const hashedPassword = await bcrypt.hash(args.password, salt);
@@ -16,8 +17,6 @@ const resolversAutenticacion = {
                     rol: args.rol,
                     password: hashedPassword,
                 });
-                console.log('usuario creado', usuarioCreado);
-                console.log('clave', args.password);
                 return {
                     token:generateToken({
                         _id:usuarioCreado._id,

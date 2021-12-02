@@ -10,6 +10,7 @@ import { validateToken } from './utils/tokenUtils.js';
 dotenv.config();
 
 const getUserData = (token)=>{
+  console.log('getuserdata')
   const verificacion = validateToken(token.split(' ')[1]);
   if(verificacion.data){
     return verificacion.data;

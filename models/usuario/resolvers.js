@@ -1,5 +1,6 @@
 import { UsuarioModel } from './usuario.js'
 import { generateToken } from "../../utils/tokenUtils.js";
+import bcrypt from 'bcrypt';
 
 const resolversUsuario = {
   Query: {
@@ -54,7 +55,6 @@ const resolversUsuario = {
         apellido: args.apellido,
         identificacion: args.identificacion,
         correo: args.correo,
-        rol: args.rol,
       },{new:true});
       return {
         token:generateToken({_id: perfilEditado._id,
@@ -64,6 +64,33 @@ const resolversUsuario = {
           correo: perfilEditado.correo,
           rol: perfilEditado.rol,
           estado: perfilEditado.estado}),
+      };
+    },
+    cambiarPassword: async (parent, args) => {
+
+      const usuarioEncontrado = await UsuarioModel.findOne({ _id: args._id });
+      if(!await bcrypt.compare(args.password, usuarioEncontrado.password)){
+        return {
+          message: 'La contraseña actual esta errada',
+          type: 'error'
+        }
+      }
+
+      if(args.newpassword !== args.verifypassword){
+        return {
+          message: 'La nueva contraseña y la contraseña de verificacion no coinciden',
+          type: 'error'
+        }
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(args.newpassword, salt);
+      const passwordCambiado = await UsuarioModel.findByIdAndUpdate(args._id, {
+        password: hashedPassword
+      },{new:true});
+      return {
+        message: 'La contraseña ha sido actualizada con éxito',
+        type: 'success'
       };
     },
     eliminarUsuario: async (parent, args) => {
