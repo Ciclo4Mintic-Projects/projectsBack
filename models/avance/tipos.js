@@ -34,6 +34,11 @@ const tiposAvance = gql`
       creadoPor: String
       titulo:String
     ):Avance
+    
+    eliminarAvance(
+      _id: String!
+    ):Avance
+
   }
 `;
 
