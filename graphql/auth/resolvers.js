@@ -7,6 +7,11 @@ const resolversAutenticacion = {
         registro: async (parent, args) => {
             console.log('registro')
             try {
+                if(args.password !== args.verifypassword){
+                    return {
+                      error: 'La contraseña y la verificacion no coinciden'
+                    }
+                  }
                 const salt = await bcrypt.genSalt(10);
                 const hashedPassword = await bcrypt.hash(args.password, salt);
                 const usuarioCreado = await UsuarioModel.create({
