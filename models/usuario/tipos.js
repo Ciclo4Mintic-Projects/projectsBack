@@ -17,6 +17,11 @@ const tiposUsuario = gql`
     estado: Enum_EstadoUsuario
   }  
 
+  type Message {
+    message: String,
+    type: String
+  }
+
   type Query {
     Usuarios: [Usuario]
     Usuario(_id: String!): Usuario
@@ -49,8 +54,14 @@ const tiposUsuario = gql`
       apellido: String
       identificacion: String
       correo: String
-      rol: Enum_Rol
     ): Token
+
+    cambiarPassword(
+      _id: String, 
+      password: String, 
+      newpassword: String, 
+      verifypassword: String
+      ): Message
 
     eliminarUsuario(_id: String, correo: String): Usuario
     

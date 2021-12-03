@@ -32,7 +32,6 @@ const resolversAvance = {
         proyecto: args.proyecto,
         fecha: args.fecha,
         descripcion: args.descripcion,
-        observaciones: args.observaciones,
         creadoPor: args.creadoPor,
         titulo: args.titulo,
       }, { new: true })
@@ -41,6 +40,13 @@ const resolversAvance = {
     eliminarAvance: async (parent, args) => {
       const avanceEliminado = await AvanceModel.findOneAndDelete({ _id: args._id })
       return avanceEliminado;
+    },
+    crearObservacion: async (parent, args) => {
+      //const actualObservaciones = await AvanceModel.findOne({ _id: args._id }).observaciones
+      const observacionCreada = await AvanceModel.findByIdAndUpdate(args._id, {
+        $push: { observaciones: args.observacion }
+      }, { new: true })
+      return observacionCreada
     }
   },
 };
