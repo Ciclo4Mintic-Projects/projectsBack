@@ -16,7 +16,7 @@ const resolversInscripcion = {
         const proyectos = await ProyectoModel.find({lider: context.userData._id});
         console.log(proyectos)
         if(proyectos){
-          const inscripciones = await InscripcionModel.find({proyecto: {$in : [proyectos.map((p)=>p._id)]}}).populate('estudiante').populate({
+          const inscripciones = await InscripcionModel.find({proyecto: proyectos.map(p=>p._id.toLocaleString())} ).populate('estudiante').populate({
             path: 'proyecto',
             populate: {
               path: 'lider'
