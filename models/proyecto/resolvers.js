@@ -49,7 +49,35 @@ const resolversProyecto = {
       });
       return proyectoCreado;
     },
-    editarProyecto: async (parent, args) => {
+    editarProyecto: async (parent, args, context) => {
+
+      // Verificar si es administrador
+      //si sí, verificar si el estado actual(como esta en la db) es inactivo 
+      //y el nuevo(args)  es activo, entonces
+      //verificar si la fase actual (db) es pendiente, si sí poner el estado en iniciado
+      //y se toma la fecha actual para el campo de fecha de inicio
+      const proyecto = await ProyectoModel.findOne({ _id: args._id });
+      if (context.userData.rol === 'ADMINISTRADOR' 
+          && proyecto.estado === 'INACTIVO'
+          && args.estado === 'ACTIVO'
+          && proyecto.fase === 'PENDIENTE'){
+
+              args.fase = 'INICIADO'
+
+              const fecha = new Date()
+              args.fechaInicio = fecha.toISOString().split('T')[0]
+      }
+
+      if (context.userData.rol === 'ADMINISTRADOR' 
+          && proyecto.fase === 'DESARROLLO'
+          && args.fase === 'TERMINADO'){
+
+              args.fase = 'TERMINADO'
+
+              const fecha = new Date()
+              args.fechaFin = fecha.toISOString().split('T')[0]
+      }  
+
       const proyectoEditado = await ProyectoModel.findByIdAndUpdate(args._id, {
         nombre: args.nombre,
         estado: args.estado,
