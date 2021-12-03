@@ -39,6 +39,10 @@ const tiposAvance = gql`
       _id: String!
     ):Avance
 
+    crearObservacion(
+      _id: String!
+      observacion: String
+    ):Avance
   }
 `;
 
