@@ -30,7 +30,7 @@ const resolversProyecto = {
       }      
     },
     Proyecto: async (parent, args) => {
-      const proyecto = await ProyectoModel.findOne({ _id: args._id });
+      const proyecto = await ProyectoModel.findOne({ _id: args._id }).populate('avances');
       return proyecto;
     },
   },
@@ -76,8 +76,14 @@ const resolversProyecto = {
 
               const fecha = new Date()
               args.fechaFin = fecha.toISOString().split('T')[0]
-      }  
+              args.estado = 'INACTIVO'
+      }
 
+      if (context.userData.rol === 'ADMINISTRADOR'
+      && args.fase === 'TERMINADO'){
+        args.estado = 'INACTIVO'
+      }
+      
       const proyectoEditado = await ProyectoModel.findByIdAndUpdate(args._id, {
         nombre: args.nombre,
         estado: args.estado,
