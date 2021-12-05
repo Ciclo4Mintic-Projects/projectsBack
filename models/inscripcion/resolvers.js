@@ -70,7 +70,7 @@ const resolversInscripcion = {
       }
     }, inscripcionTerminada: async (parent, args) => {
       let date = new Date();
-      const inscripcionTerminada = await InscripcionModel.updateMany({ $and: [{ proyecto: args.proyecto }, { estado: "ACEPTADO" }] },//como traer campos de objeto referencia {proyecto:{fase:'TERMINADO'}
+      const inscripcionTerminada = await InscripcionModel.updateMany({ $and: [{ proyecto: args.proyecto }, { estado: "ACEPTADO" }, {fechaEgreso: null}] },//como traer campos de objeto referencia {proyecto:{fase:'TERMINADO'}
         {
           fechaEgreso: date.toLocaleString(),
         }
