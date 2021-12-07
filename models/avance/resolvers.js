@@ -1,10 +1,33 @@
 import { AvanceModel } from './avance.js';
+import { InscripcionModel } from '../inscripcion/inscripcion.js';
+import { ProyectoModel } from '../proyecto/proyecto.js';
+
 
 const resolversAvance = {
   Query: {
-    Avances: async (parent, args) => {
-      const avances = await AvanceModel.find().populate('proyecto').populate('creadoPor');
-      return avances;
+    Avances: async (parent, args, context) => {
+      if (context.userData.rol === 'ESTUDIANTE') {
+        const inscripciones = await InscripcionModel.find({ $and: [{ estudiante: context.userData._id }, { estado: "ACEPTADO" }] })
+        console.log(inscripciones)
+        if (inscripciones) {
+          const avances = await AvanceModel.find({ proyecto: inscripciones.map(p => p.proyecto) }).populate('proyecto').populate('creadoPor');
+          return avances;
+        } else {
+          console.log("no hay avances")
+        }
+      } else if (context.userData.rol === 'LIDER') {
+        const proyectos = await ProyectoModel.find({ lider: context.userData._id })
+        console.log(proyectos)
+        if (proyectos) {
+          const avances = await AvanceModel.find({ proyecto: proyectos.map(p => p._id) }).populate('proyecto').populate('creadoPor');
+          return avances;
+        } else {
+          console.log("no hay avances")
+        }
+      } else {
+        const avances = await AvanceModel.find().populate('proyecto').populate('creadoPor');
+        return avances;
+      }
     },
     Avance: async (parent, args) => {
       const avance = await AvanceModel.findOne({ _id: args._id }).populate('proyecto').populate('creadoPor');
@@ -14,6 +37,7 @@ const resolversAvance = {
       const avanceFiltrado = await AvanceModel.find({ proyecto: args.idProyecto }).populate('proyecto').populate('creadoPor');
       return avanceFiltrado;
     },
+
   },
   Mutation: {
     crearAvance: async (parent, args) => {
