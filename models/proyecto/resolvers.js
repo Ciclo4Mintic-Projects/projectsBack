@@ -30,7 +30,10 @@ const resolversProyecto = {
       }      
     },
     Proyecto: async (parent, args) => {
-      const proyecto = await ProyectoModel.findOne({ _id: args._id }).populate('avances');
+      const proyecto = await ProyectoModel.findOne({ _id: args._id }).populate( {path:'avances', populate: {
+        path: 'creadoPor'
+      }
+      });
       return proyecto;
     },
   },
