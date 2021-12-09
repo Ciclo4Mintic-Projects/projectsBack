@@ -41,6 +41,7 @@ const resolversAvance = {
   },
   Mutation: {
     crearAvance: async (parent, args) => {
+      console.log('args', args)
       const avanceCreado = await AvanceModel.create({
         proyecto: args.proyecto,
         fecha: args.fecha,
@@ -49,6 +50,10 @@ const resolversAvance = {
         creadoPor: args.creadoPor,
         titulo: args.titulo,
       });
+      const filtrarAvance = await AvanceModel.find({ proyecto: args.proyecto });
+      if(filtrarAvance.length === 1){
+        await ProyectoModel.findOneAndUpdate({ _id:args.proyecto, fase: 'INICIADO'} ,  { fase:'DESARROLLO' });
+      }
       return avanceCreado;
     },
     editarAvance: async (parent, args) => {
