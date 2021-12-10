@@ -12,6 +12,11 @@ const tiposAvance = gql`
     titulo: String!
   }
 
+  type RespuestaAvance {
+    mensaje: String
+    estado: String
+  }
+
   type Query {
     Avances: [Avance]
     filtrarAvance(idProyecto: String!): [Avance]
@@ -24,7 +29,7 @@ const tiposAvance = gql`
       proyecto: String!
       creadoPor: String!
       titulo:String!
-      ): Avance
+      ): RespuestaAvance
 
     editarAvance(
       _id: String!

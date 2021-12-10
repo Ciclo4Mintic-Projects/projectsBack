@@ -41,7 +41,15 @@ const resolversAvance = {
   },
   Mutation: {
     crearAvance: async (parent, args) => {
-      console.log('args', args)
+      //Validando si el estudiante esta rechazado en el proyecto
+      const inscripcionEstudiante = await InscripcionModel.find({proyecto:args.proyecto, estado: "RECHAZADO" });
+      if(inscripcionEstudiante.length > 0){
+        return {
+          mensaje: "No puedes registrar avances de este proyecto",
+          estado: "error"
+        };
+      } 
+
       const avanceCreado = await AvanceModel.create({
         proyecto: args.proyecto,
         fecha: args.fecha,
@@ -50,11 +58,17 @@ const resolversAvance = {
         creadoPor: args.creadoPor,
         titulo: args.titulo,
       });
+
+      //Validando si es el primer avance creado, para automaticamente cambiar el estado del proyecto
       const filtrarAvance = await AvanceModel.find({ proyecto: args.proyecto });
       if(filtrarAvance.length === 1){
         await ProyectoModel.findOneAndUpdate({ _id:args.proyecto, fase: 'INICIADO'} ,  { fase:'DESARROLLO' });
-      }
-      return avanceCreado;
+      }     
+      return {
+        mensaje: "El avance ha sido registrado",
+        estado: "exito"
+      };
+       
     },
     editarAvance: async (parent, args) => {
       const avanceEditado = await AvanceModel.findByIdAndUpdate(args._id, {

@@ -161,13 +161,32 @@ var resolversAvance = {
   },
   Mutation: {
     crearAvance: function crearAvance(parent, args) {
-      var avanceCreado, filtrarAvance;
+      var inscripcionEstudiante, avanceCreado, filtrarAvance;
       return regeneratorRuntime.async(function crearAvance$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              console.log('args', args);
-              _context4.next = 3;
+              _context4.next = 2;
+              return regeneratorRuntime.awrap(_inscripcion.InscripcionModel.find({
+                proyecto: args.proyecto,
+                estado: "RECHAZADO"
+              }));
+
+            case 2:
+              inscripcionEstudiante = _context4.sent;
+
+              if (!(inscripcionEstudiante.length > 0)) {
+                _context4.next = 5;
+                break;
+              }
+
+              return _context4.abrupt("return", {
+                mensaje: "No puedes registrar avances de este proyecto",
+                estado: "error"
+              });
+
+            case 5:
+              _context4.next = 7;
               return regeneratorRuntime.awrap(_avance.AvanceModel.create({
                 proyecto: args.proyecto,
                 fecha: args.fecha,
@@ -177,22 +196,22 @@ var resolversAvance = {
                 titulo: args.titulo
               }));
 
-            case 3:
+            case 7:
               avanceCreado = _context4.sent;
-              _context4.next = 6;
+              _context4.next = 10;
               return regeneratorRuntime.awrap(_avance.AvanceModel.find({
                 proyecto: args.proyecto
               }));
 
-            case 6:
+            case 10:
               filtrarAvance = _context4.sent;
 
               if (!(filtrarAvance.length === 1)) {
-                _context4.next = 10;
+                _context4.next = 14;
                 break;
               }
 
-              _context4.next = 10;
+              _context4.next = 14;
               return regeneratorRuntime.awrap(_proyecto.ProyectoModel.findOneAndUpdate({
                 _id: args.proyecto,
                 fase: 'INICIADO'
@@ -200,10 +219,13 @@ var resolversAvance = {
                 fase: 'DESARROLLO'
               }));
 
-            case 10:
-              return _context4.abrupt("return", avanceCreado);
+            case 14:
+              return _context4.abrupt("return", {
+                mensaje: "El avance ha sido registrado",
+                estado: "exito"
+              });
 
-            case 11:
+            case 15:
             case "end":
               return _context4.stop();
           }
