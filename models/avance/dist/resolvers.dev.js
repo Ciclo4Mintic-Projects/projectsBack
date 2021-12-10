@@ -166,17 +166,21 @@ var resolversAvance = {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.next = 2;
+              console.log('args', args); //Validando si el estudiante esta rechazado en el proyecto
+
+              _context4.next = 3;
               return regeneratorRuntime.awrap(_inscripcion.InscripcionModel.find({
                 proyecto: args.proyecto,
+                estudiante: args.creadoPor,
                 estado: "RECHAZADO"
               }));
 
-            case 2:
+            case 3:
               inscripcionEstudiante = _context4.sent;
+              console.log('inscripcionEstudiante', inscripcionEstudiante);
 
               if (!(inscripcionEstudiante.length > 0)) {
-                _context4.next = 5;
+                _context4.next = 7;
                 break;
               }
 
@@ -185,8 +189,8 @@ var resolversAvance = {
                 estado: "error"
               });
 
-            case 5:
-              _context4.next = 7;
+            case 7:
+              _context4.next = 9;
               return regeneratorRuntime.awrap(_avance.AvanceModel.create({
                 proyecto: args.proyecto,
                 fecha: args.fecha,
@@ -196,22 +200,22 @@ var resolversAvance = {
                 titulo: args.titulo
               }));
 
-            case 7:
+            case 9:
               avanceCreado = _context4.sent;
-              _context4.next = 10;
+              _context4.next = 12;
               return regeneratorRuntime.awrap(_avance.AvanceModel.find({
                 proyecto: args.proyecto
               }));
 
-            case 10:
+            case 12:
               filtrarAvance = _context4.sent;
 
               if (!(filtrarAvance.length === 1)) {
-                _context4.next = 14;
+                _context4.next = 16;
                 break;
               }
 
-              _context4.next = 14;
+              _context4.next = 16;
               return regeneratorRuntime.awrap(_proyecto.ProyectoModel.findOneAndUpdate({
                 _id: args.proyecto,
                 fase: 'INICIADO'
@@ -219,13 +223,13 @@ var resolversAvance = {
                 fase: 'DESARROLLO'
               }));
 
-            case 14:
+            case 16:
               return _context4.abrupt("return", {
                 mensaje: "El avance ha sido registrado",
                 estado: "exito"
               });
 
-            case 15:
+            case 17:
             case "end":
               return _context4.stop();
           }

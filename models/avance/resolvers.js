@@ -41,8 +41,10 @@ const resolversAvance = {
   },
   Mutation: {
     crearAvance: async (parent, args) => {
+      console.log('args', args)
       //Validando si el estudiante esta rechazado en el proyecto
-      const inscripcionEstudiante = await InscripcionModel.find({proyecto:args.proyecto, estado: "RECHAZADO" });
+      const inscripcionEstudiante = await InscripcionModel.find({proyecto:args.proyecto, estudiante:args.creadoPor, estado: "RECHAZADO" });
+      console.log('inscripcionEstudiante', inscripcionEstudiante)
       if(inscripcionEstudiante.length > 0){
         return {
           mensaje: "No puedes registrar avances de este proyecto",
